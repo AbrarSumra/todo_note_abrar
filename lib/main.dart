@@ -4,6 +4,7 @@ import 'package:todo_note_abrar/AppDataBase/app_db.dart';
 import 'package:todo_note_abrar/Provider/note_provider.dart';
 import 'package:todo_note_abrar/Screens/home_screen.dart';
 import 'package:todo_note_abrar/Screens/login_screen.dart';
+import 'package:todo_note_abrar/Screens/splash_screen.dart';
 
 void main() {
   runApp(
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(primaryColor: Colors.blue),
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: SplashScreen(),
     );
   }
 }
