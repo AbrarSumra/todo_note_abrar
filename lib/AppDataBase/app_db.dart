@@ -50,7 +50,7 @@ class AppDataBase {
       version: 1,
       onCreate: (db, version) {
         db.execute(
-            "create table $NOTE_TABLE ( $COLUMN_NOTE_ID integer primary key autoincrement, $COLUMN_USER_ID text, $COLUMN_NOTE_TITLE text, $COLUMN_NOTE_DESC text )");
+            "create table $NOTE_TABLE ( $COLUMN_NOTE_ID integer primary key autoincrement, $COLUMN_USER_ID integer, $COLUMN_NOTE_TITLE text, $COLUMN_NOTE_DESC text )");
         db.execute(
             "create table $USER_TABLE ( $COLUMN_USER_ID integer primary key autoincrement, $COLUMN_USER_NAME text, $COLUMN_USER_EMAIL text, $COLUMN_USER_PASS text )");
       },

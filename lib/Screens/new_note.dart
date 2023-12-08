@@ -74,8 +74,8 @@ class NewNoteScreen extends StatelessWidget {
                                 note_Title: titleController.text.toString(),
                                 note_Desc: descController.text.toString(),
                               ));
+                          Navigator.pop(context);
                         }
-                        Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
