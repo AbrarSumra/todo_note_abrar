@@ -2,7 +2,6 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:sqflite/sqlite_api.dart';
 import 'package:todo_note_abrar/Model/note_model.dart';
 import 'package:todo_note_abrar/Model/user_model.dart';
 
