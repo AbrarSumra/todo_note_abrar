@@ -22,7 +22,15 @@ class NoteProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /*Future<void> updateNote(NoteModel updateNote) async {
-    await db.updateNote(updateNote);
-  }*/
+  void deleteNote(int id) async {
+    db.deleteNote(id);
+    _arrayNotes = await db.fetchNotes();
+    notifyListeners();
+  }
+
+  void updateNote(NoteModel updateNote) async {
+    db.updateNote(updateNote);
+    _arrayNotes = await db.fetchNotes();
+    notifyListeners();
+  }
 }

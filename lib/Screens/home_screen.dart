@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:todo_note_abrar/Model/note_model.dart';
 import 'package:todo_note_abrar/Provider/note_provider.dart';
+import 'package:todo_note_abrar/Screens/login_screen.dart';
 import 'package:todo_note_abrar/Screens/new_note.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -34,12 +37,33 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 20),
+              TextButton.icon(
+                onPressed: () async {
+                  var prefs = await SharedPreferences.getInstance();
+                  prefs.setBool(LoginScreen.LOGIN_PREFS_KEY, false);
+
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (ctx) => LoginScreen()));
+                },
+                icon: const Icon(Icons.login_outlined),
+                label: const Text("Log out"),
+              )
+            ],
+          ),
+        ),
+      ),
       appBar: AppBar(
+        backgroundColor: Colors.blue,
         title: const Text(
           "Todo App",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.blue,
       ),
       body: Consumer<NoteProvider>(builder: (ctx, provider, child) {
         var notes = provider.getNotes();
@@ -59,13 +83,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Row(
                         children: [
                           IconButton(
-                            onPressed: () {
-                              /* openBottomSheet(
-                                isUpdate: true,
-                                noteId: currData.note_Id,
-                                noteTitle: currData.note_Title,
-                                noteDesc: currData.note_Desc,
-                              );*/
+                            onPressed: () async {
+                              var updateNote = NoteModel(
+                                  user_id: currData.user_id,
+                                  note_Id: currData.note_Id,
+                                  note_Title: currData.note_Title,
+                                  note_Desc: currData.note_Title);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (ctx) => NewNoteScreen(
+                                            isUpdate: true,
+                                          )));
                             },
                             icon: const Icon(
                               Icons.edit,
@@ -85,8 +114,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       TextButton(
                                         onPressed: () {
                                           /// delete operations
-                                          /*  appData.deleteNote(note.note_Id);
-                                          getAllNotes();*/
+                                          context
+                                              .read<NoteProvider>()
+                                              .deleteNote(currData.note_Id);
                                           Navigator.pop(context);
                                         },
                                         child: const Text("Yes"),

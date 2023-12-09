@@ -66,12 +66,22 @@ class AppDataBase {
     db.insert(NOTE_TABLE, newNote.toMap());
   }
 
-  Future<int> getUID() async {
-    var prefs = await SharedPreferences.getInstance();
-    var uid = prefs.getInt(AppDataBase.LOGIN_UID);
-    return uid ?? 0;
+  /// UPDATE Note
+  void updateNote(NoteModel updateNote) async {
+    var db = await getDB();
+
+    db.update(NOTE_TABLE, updateNote.toMap(),
+        where: "$COLUMN_NOTE_ID =?", whereArgs: ["${updateNote.note_Id}"]);
   }
 
+  /// DELETE Note
+  void deleteNote(int id) async {
+    var db = await getDB();
+
+    db.delete(NOTE_TABLE, where: "$COLUMN_NOTE_ID =?", whereArgs: ["$id"]);
+  }
+
+  /// FETCH Note
   Future<List<NoteModel>> fetchNotes() async {
     var uid = await getUID();
 
@@ -89,17 +99,10 @@ class AppDataBase {
     return arrNotes;
   }
 
-  void updateNote(NoteModel updateNote) async {
-    var db = await getDB();
-
-    db.update(NOTE_TABLE, updateNote.toMap(),
-        where: "$COLUMN_NOTE_ID =?", whereArgs: ["${updateNote.note_Id}"]);
-  }
-
-  void deleteNote(int id) async {
-    var db = await getDB();
-
-    db.delete(NOTE_TABLE, where: "$COLUMN_NOTE_ID =?", whereArgs: ["$id"]);
+  Future<int> getUID() async {
+    var prefs = await SharedPreferences.getInstance();
+    var uid = prefs.getInt(AppDataBase.LOGIN_UID);
+    return uid ?? 0;
   }
 
   ///Queries for User

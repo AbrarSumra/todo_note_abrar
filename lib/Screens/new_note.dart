@@ -5,18 +5,26 @@ import 'package:todo_note_abrar/Provider/note_provider.dart';
 import '../Model/note_model.dart';
 
 class NewNoteScreen extends StatelessWidget {
-  NewNoteScreen({super.key});
+  NewNoteScreen({
+    super.key,
+    this.isUpdate = false,
+  });
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descController = TextEditingController();
+
+  final bool isUpdate;
+  /*final String title;
+  final String desc;*/
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text(
-            "New Note",
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          title: Text(
+            isUpdate ? "Update Note" : "New Note",
+            style: const TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold),
           ),
           backgroundColor: Colors.blue,
         ),
@@ -27,9 +35,10 @@ class NewNoteScreen extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 20),
-                const Text(
-                  "Add Note",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                Text(
+                  isUpdate ? "Update Note" : "New Note",
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
@@ -83,9 +92,9 @@ class NewNoteScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      child: const Text(
-                        "Add",
-                        style: TextStyle(
+                      child: Text(
+                        isUpdate ? "Update" : "Add",
+                        style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 18),
