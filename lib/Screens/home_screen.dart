@@ -83,17 +83,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Row(
                         children: [
                           IconButton(
-                            onPressed: () async {
-                              var updateNote = NoteModel(
-                                  user_id: currData.user_id,
-                                  note_Id: currData.note_Id,
-                                  note_Title: currData.note_Title,
-                                  note_Desc: currData.note_Title);
+                            onPressed: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (ctx) => NewNoteScreen(
                                             isUpdate: true,
+                                            userId: currData.user_id,
+                                            noteIndex: currData.note_Id,
+                                            noteTitle: currData.note_Title,
+                                            noteDesc: currData.note_Desc,
                                           )));
                             },
                             icon: const Icon(

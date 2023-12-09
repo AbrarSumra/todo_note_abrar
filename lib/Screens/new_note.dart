@@ -8,17 +8,25 @@ class NewNoteScreen extends StatelessWidget {
   NewNoteScreen({
     super.key,
     this.isUpdate = false,
+    this.userId = 0,
+    this.noteIndex = 0,
+    this.noteTitle = "",
+    this.noteDesc = "",
   });
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descController = TextEditingController();
 
   final bool isUpdate;
-  /*final String title;
-  final String desc;*/
+  final int noteIndex;
+  final int userId;
+  final String noteTitle;
+  final String noteDesc;
 
   @override
   Widget build(BuildContext context) {
+    titleController.text = noteTitle;
+    descController.text = noteDesc;
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -77,12 +85,23 @@ class NewNoteScreen extends StatelessWidget {
                       onPressed: () {
                         if (titleController.text.isNotEmpty &&
                             descController.text.isNotEmpty) {
-                          context.read<NoteProvider>().addNote(NoteModel(
-                                user_id: 0,
-                                note_Id: 0,
-                                note_Title: titleController.text.toString(),
-                                note_Desc: descController.text.toString(),
-                              ));
+                          if (isUpdate) {
+                            /// Update Note
+                            context.read<NoteProvider>().updateNote(NoteModel(
+                                  user_id: userId,
+                                  note_Id: noteIndex,
+                                  note_Title: titleController.text.toString(),
+                                  note_Desc: descController.text.toString(),
+                                ));
+                          } else {
+                            /// Add Note
+                            context.read<NoteProvider>().addNote(NoteModel(
+                                  user_id: 0,
+                                  note_Id: 0,
+                                  note_Title: titleController.text.toString(),
+                                  note_Desc: descController.text.toString(),
+                                ));
+                          }
                           Navigator.pop(context);
                         }
                       },
