@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:todo_note_abrar/Model/note_model.dart';
 import 'package:todo_note_abrar/Provider/note_provider.dart';
 import 'package:todo_note_abrar/Screens/login_screen.dart';
 import 'package:todo_note_abrar/Screens/new_note.dart';
@@ -42,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextButton.icon(
                 onPressed: () async {
                   var prefs = await SharedPreferences.getInstance();

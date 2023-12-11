@@ -101,7 +101,7 @@ class AppDataBase {
 
   Future<int> getUID() async {
     var prefs = await SharedPreferences.getInstance();
-    var uid = prefs.getInt(AppDataBase.LOGIN_UID);
+    var uid = prefs.getInt(LOGIN_UID);
     return uid ?? 0;
   }
 
